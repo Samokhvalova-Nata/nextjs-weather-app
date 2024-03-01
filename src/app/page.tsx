@@ -2,11 +2,14 @@
 
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
+import WeatherDetails from "@/components/WeaterDetails";
 import WeatherIcon from "@/components/WeatherIcon";
+import { converWindSpeed } from "@/utils/converWindSpeed";
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
 import { getDayOrNigthIcon } from "@/utils/getDayOrNigthIcon";
+import { metersToKilometers } from "@/utils/metersToKilometers";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { format, fromUnixTime, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 
 interface WeatherData {
@@ -131,10 +134,36 @@ if (isLoading)
               </div>
             </Container>
           </div>
+          <div className="flex gap-4">
+
+            {/* left */}
+            <Container className="w-fit justify-center flex-col px-4 items-center">
+              <p className="capitalize text-center">
+                {firstData?.weather[0].description}{" "}
+              </p>
+              <WeatherIcon iconname={getDayOrNigthIcon(
+                firstData?.weather[0].icon ?? '',
+                firstData?.dt_txt ?? '')}/>
+            </Container>
+
+            {/* right */}
+            <Container className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto">
+              <WeatherDetails 
+                visability={metersToKilometers(firstData?.visibility ?? 1000 )}
+                airPressure={`${firstData?.main.pressure} hPa`}
+                humidity={`${firstData?.main.humidity}`}
+                sunrise={format(fromUnixTime(data?.city.sunrise ?? 1702949452), 'H:mm')}
+                sunset={format(fromUnixTime(data?.city.sunset?? 1702949452), 'H:mm')}
+                windSpeed={converWindSpeed(firstData?.wind.speed ?? 1.64)}
+                />
+            </Container>
+          </div>
         </section>
 
         {/* {7 day forcast data} */}
-        <section></section>
+        <section className="flex flex-col w-full gap-4">
+          <p className="text-2xl">Forcast (7 days)</p>
+        </section>
 
       </main>
     </div>
