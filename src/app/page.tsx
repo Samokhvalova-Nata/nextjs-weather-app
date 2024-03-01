@@ -2,7 +2,9 @@
 
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
+import WeatherIcon from "@/components/WeatherIcon";
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
+import { getDayOrNigthIcon } from "@/utils/getDayOrNigthIcon";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
@@ -99,6 +101,7 @@ if (isLoading)
               <p className="text-lg">({format(parseISO(firstData?.dt_txt ?? ''), 'dd.MM.yyyy')})</p>
             </h2>
             <Container className="gap-10 px-6 items-center">
+              {/* {temprature} */}
               <div className="flex flex-col px-4">
                 <span className="text-5xl">
                   {convertKelvinToCelsius(firstData?.main.temp ?? 0)}°
@@ -112,6 +115,19 @@ if (isLoading)
                   <span>{" "}{convertKelvinToCelsius(firstData?.main.temp_max ?? 0)}°↑ </span>
 
                 </p>
+              </div>
+
+              {/* {time and weather icon} */}
+              <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+
+                {data?.list.map((d, i) => (
+                  <div key={i} className="flex flex-col justify-between gap-2 items-center text-xs font-semibold">
+                    <p className="whitespace-nowrap">{format(parseISO(d.dt_txt), 'h:mm a')}</p>
+                    <WeatherIcon iconname={getDayOrNigthIcon(d.weather[0].icon, d.dt_txt)}/>
+                    <p>{convertKelvinToCelsius(firstData?.main.temp ?? 0)}°</p>
+                  </div>
+                ))}
+
               </div>
             </Container>
           </div>
