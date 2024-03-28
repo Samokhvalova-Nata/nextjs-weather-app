@@ -3,6 +3,7 @@ import { FiDroplet } from 'react-icons/fi';
 import { ImMeter } from 'react-icons/im';
 import { LuEye, LuSunrise, LuSunset } from 'react-icons/lu';
 import { MdAir } from 'react-icons/md';
+import SingleWeatherDetail from './SingleWeatherDetail';
 
 export interface WeatherDetailProps {
     visability: string;
@@ -57,20 +58,4 @@ export default function WeatherDetails(props: WeatherDetailProps) {
         />
         </>
     );
-};
-
-export interface SingleWeatherDetailProps {
-    information: string;
-    icon: React.ReactNode;
-    value: string;
-};
-
-function SingleWeatherDetail({ information, icon, value}: SingleWeatherDetailProps) {
-    return (
-        <div className='flex flex-col justify-between gap-2 items-center text-xs font-semibold text-black/80'>
-            <p className='whitespace-nowrap'>{information}</p>
-            <div className='text-3xl'>{icon}</div>
-            <p>{value}</p>
-        </div>
-    )
 };

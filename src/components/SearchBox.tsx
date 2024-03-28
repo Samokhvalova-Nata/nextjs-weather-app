@@ -1,5 +1,5 @@
-import { cn } from '@/utils/cn';
 import React from 'react';
+import { cn } from '@/utils/cn';
 import { IoSearch } from "react-icons/io5";
 
 type Props = {
