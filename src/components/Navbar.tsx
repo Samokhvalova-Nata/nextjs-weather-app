@@ -53,8 +53,8 @@ export default function Navbar({location}: Props) {
             setError('');
             setTimeout(()=>{
                 setPlace(city);
-            setLoadingCity(false);
-            setShowSuggestions(false);
+                setLoadingCity(false);
+                setShowSuggestions(false);
             }, 500);
         }
     };
