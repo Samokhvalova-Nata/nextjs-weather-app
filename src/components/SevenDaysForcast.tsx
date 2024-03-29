@@ -18,7 +18,7 @@ export default function SevenDaysForcast({ data }: Props) {
 
   return (
     <section className="flex flex-col w-full gap-4">
-      <p className="text-2xl">Forcast (7 days)</p>
+      <p className="text-2xl">Forcast (6 days)</p>
       {firstDataForEachDate.map((d, i) => (
         <ForcastWeaterDetail
           key={i}
